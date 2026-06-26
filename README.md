@@ -54,6 +54,14 @@ pyinstaller --onefile --name bb-archive run.py
 
 Output: `dist/bb-archive` (Linux) / `dist/bb-archive.exe` (Windows). No Python required on the target machine.
 
+**Linux:** after downloading, make it executable:
+```bash
+chmod +x bb-archive-linux
+./bb-archive-linux ui
+```
+
+**Windows:** double-click the `.exe` or run from Command Prompt — no extra steps needed.
+
 ### Cross-platform builds
 
 Push to `main` and the CI workflow (`.github/workflows/build.yml`) automatically builds Linux + Windows binaries and creates a GitHub Release.
