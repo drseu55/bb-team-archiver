@@ -9,21 +9,21 @@ permissions:
 
 jobs:
   build-linux:
-    runs-on: ubuntu-latest
-    container: quay.io/pypa/manylinux_2_28_x86_64
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Python with shared library
-        run: |
-          yum install -y python3.10 python3.10-devel
-          python3.10 -m ensurepip
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
 
-      - name: Install dependencies and build
+      - name: Install dependencies
         run: |
-          python3.10 -m pip install pyinstaller flask
-          python3.10 -m pip install .
-          python3.10 -m PyInstaller --onefile --name bb-archive run.py
+          pip install pyinstaller flask
+          pip install .
+
+      - name: Build with PyInstaller
+        run: pyinstaller --onefile --name bb-archive run.py
 
       - name: Rename for upload
         run: mv dist/bb-archive bb-archive-linux
