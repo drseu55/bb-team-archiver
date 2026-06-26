@@ -14,11 +14,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Python with shared library
+        run: |
+          yum install -y python3.10 python3.10-devel
+          python3.10 -m ensurepip
+
       - name: Install dependencies and build
         run: |
-          /opt/python/cp310-cp310/bin/pip install pyinstaller flask
-          /opt/python/cp310-cp310/bin/pip install .
-          /opt/python/cp310-cp310/bin/pyinstaller --onefile --name bb-archive run.py
+          python3.10 -m pip install pyinstaller flask
+          python3.10 -m pip install .
+          python3.10 -m PyInstaller --onefile --name bb-archive run.py
 
       - name: Rename for upload
         run: mv dist/bb-archive bb-archive-linux
